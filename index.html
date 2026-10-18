@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sreshta's Safe &amp; Smart — Smart, Not Scared</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--ink:#4A3220;--ink2:#6E4A12;--cream:#FFF8E7;--paper:#FFFDF4;--card:#FFFFFF;--amber:#D98E2B;--amber2:#B96F0E;--gold:#E9B44C;--goldlt:#F6C453;--teal:#177E70;--teal2:#2A9D8F;--line:#EAD9AC;--soft:#8A6D3B}
+body{margin:0;font-family:'Nunito',sans-serif;color:var(--ink);background:linear-gradient(180deg,#FFF6DC 0%,#FDEBC8 45%,#F5DFAC 100%);min-height:100dvh;overflow-x:hidden;position:relative}
+h1,h2,h3,.baloo{font-family:'Baloo 2',cursive}
+.scr{display:none;max-width:480px;margin:0 auto;padding:12px 14px 40px;min-height:100dvh;position:relative;z-index:2}
+.scr.on{display:block}
+.topbar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.topbar .tb{background:#fff;border:2px solid var(--line);color:var(--ink2);border-radius:999px;padding:6px 14px;font-weight:800;font-size:14px;cursor:pointer;min-height:44px}
+.topbar .crumb{font-size:13px;font-weight:800;color:var(--soft)}
+.door{text-align:center;padding:8px 0 2px}
+.hillIcon{font-size:42px;line-height:1;filter:drop-shadow(0 3px 6px rgba(185,111,14,.35))}
+h1.title{margin:6px 0 0;font-size:30px;color:var(--amber2);line-height:1.15}
+.tagline{font-weight:800;color:var(--teal);letter-spacing:.3px;margin:3px 0 8px}
+.gRow{display:flex;gap:12px;align-items:flex-end;margin:8px 0}
+.gWrap{flex:0 0 104px;cursor:pointer;animation:bob 3s ease-in-out infinite;text-align:center}
+.gWrap svg{width:104px;height:auto}
+.gWrap.small{flex-basis:70px;animation:none}
+.gWrap.small svg{width:70px}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.bubble{position:relative;background:#fff;color:var(--ink);border:3px solid var(--teal2);border-radius:22px;padding:12px 14px;font-family:'Baloo 2',cursive;font-size:17px;line-height:1.35;flex:1;box-shadow:0 4px 0 rgba(23,126,112,.25)}
+.bubble:after{content:"";position:absolute;left:-13px;bottom:20px;width:20px;height:20px;background:#fff;border-left:3px solid var(--teal2);border-bottom:3px solid var(--teal2);transform:rotate(45deg);border-bottom-left-radius:6px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:14px;box-shadow:0 4px 12px rgba(185,111,14,.14);margin:10px 0;color:var(--ink)}
+.card.tealy{background:linear-gradient(135deg,#177E70,#2A9D8F);color:#fff;border-color:#177E70}
+.card.goldy{background:linear-gradient(135deg,#FFF3D6,#FFE9B8);border-color:var(--gold)}
+.card.sandy{background:linear-gradient(180deg,#FFFDF4,#FDEBC8);border-color:var(--line)}
+.btn{display:block;width:100%;border:none;cursor:pointer;border-radius:999px;padding:13px 16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;background:linear-gradient(180deg,#2A9D8F,#177E70);color:#fff;box-shadow:0 4px 0 #0E5A50;margin:8px 0;min-height:50px}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #0E5A50}
+.btn.gold{background:linear-gradient(180deg,#F6C453,#E9B44C);color:#4A3200;box-shadow:0 4px 0 #B9821E}
+.btn.ghost{background:#fff;color:var(--ink2);border:2px solid var(--line);box-shadow:none}
+.btn:disabled{opacity:.45}
+.entry{display:flex;align-items:center;gap:12px;background:#fff;border:2px solid var(--line);border-radius:18px;padding:12px 14px;width:100%;cursor:pointer;font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;color:var(--ink);margin:8px 0;text-align:left;min-height:58px}
+.entry .face{font-size:28px}
+.entry small{display:block;font-family:'Nunito';font-size:12px;color:var(--soft);font-weight:700}
+.pinDots{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.pinDots span{width:18px;height:18px;border-radius:50%;border:3px solid var(--teal);background:transparent}
+.pinDots span.f{background:var(--teal)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:290px;margin:0 auto}
+.pad button{font-family:'Baloo 2';font-size:23px;font-weight:800;padding:12px 0;border-radius:16px;border:2px solid #E4CE8F;background:#FFF9E8;color:#5B3418;cursor:pointer;min-height:54px}
+#pinMsg{text-align:center;font-weight:800;color:#B4710B;min-height:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:8px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80px}
+.stat .n{font-family:'Baloo 2';font-size:20px;font-weight:800;color:var(--teal);line-height:1.12}
+.stat .l{font-size:11.5px;font-weight:800;color:var(--soft);line-height:1.2;margin-top:3px}
+.mrow{display:flex;align-items:center;gap:11px;background:#fff;border:2px solid var(--line);border-radius:16px;padding:10px 12px;margin:7px 0;cursor:pointer;width:100%;text-align:left;color:var(--ink);min-height:56px}
+.mrow .no{font-family:'Baloo 2';font-weight:800;background:var(--teal2);color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex:0 0 34px;font-size:16px}
+.mrow .mt{font-family:'Baloo 2';font-weight:800;font-size:16.5px;line-height:1.15}
+.mrow .ms{font-size:12px;font-weight:800;color:var(--soft)}
+.mrow.lock{opacity:.6;cursor:default}
+.mrow.done .no{background:var(--gold);color:#4A3200}
+.stageCard{border:2px dashed #DCC488;border-radius:16px;padding:10px 12px;margin:7px 0;color:var(--soft);background:rgba(255,255,255,.55)}
+.stageCard .st1{font-family:'Baloo 2';font-weight:800;font-size:16px;color:var(--ink2)}
+.opt{display:block;width:100%;background:#fff;color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px;font-family:'Baloo 2';font-weight:800;font-size:16px;margin:7px 0;cursor:pointer;text-align:left;min-height:50px;line-height:1.3}
+.opt.pick{background:var(--teal2);border-color:var(--teal);color:#fff}
+.opt.wig{animation:wig .35s ease}
+@keyframes wig{0%,100%{transform:translateX(0)}30%{transform:translateX(-5px)}60%{transform:translateX(5px)}}
+textarea,input[type=text]{width:100%;border-radius:14px;border:2.5px solid var(--line);background:#FFFDF6;color:var(--ink);font-family:'Nunito';font-weight:700;font-size:16px;padding:11px;margin:6px 0}
+.dashNav{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+.dashNav button{border-radius:999px;border:2px solid var(--line);background:#fff;color:var(--ink2);font-family:'Baloo 2';font-weight:800;font-size:14px;padding:9px 14px;cursor:pointer;min-height:46px}
+.dashNav button.sel{background:var(--teal);color:#fff;border-color:var(--teal)}
+.hidden{display:none!important}
+.cele{animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.92)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+.foot{font-size:12px;color:var(--soft);font-weight:700;text-align:center;margin-top:14px;line-height:1.5}
+.stepTag{font-size:12px;font-weight:800;letter-spacing:1.2px;color:#B4710B}
+.goldTag{display:inline-block;background:#FFF3D6;border:2px solid var(--gold);color:#7A5410;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800}
+.chipRow{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+.chip{border-radius:999px;border:2px solid var(--line);background:#fff;color:var(--ink2);font-family:'Baloo 2';font-weight:800;font-size:15px;padding:10px 16px;cursor:pointer;min-height:48px}
+.chip.sel{background:var(--teal);color:#fff;border-color:var(--teal)}
+.person{display:flex;align-items:center;gap:10px;background:#FFFDF4;border:2px solid var(--line);border-radius:16px;padding:10px 12px;margin:7px 0}
+.person .pl{font-family:'Baloo 2';font-weight:800;font-size:17px;flex:1}
+.person .starBtn{border:2px solid var(--gold);background:#FFF6DC;border-radius:999px;font-family:'Baloo 2';font-weight:800;font-size:13px;padding:8px 12px;cursor:pointer;min-height:44px;color:#7A5410}
+.person .starBtn.on{background:var(--gold);color:#4A3200}
+.person .rmBtn{border:2px solid var(--line);background:#fff;border-radius:999px;font-family:'Baloo 2';font-weight:800;font-size:13px;padding:8px 12px;cursor:pointer;min-height:44px;color:var(--ink2)}
+.phrase{display:block;width:100%;background:linear-gradient(135deg,#FFF3D6,#FFE9B8);color:#4A3200;border:2.5px solid var(--gold);border-radius:18px;padding:16px 12px;font-family:'Baloo 2';font-weight:800;font-size:22px;margin:9px 0;cursor:pointer;text-align:center;min-height:60px;line-height:1.25}
+.phrase.said{background:var(--teal);border-color:var(--teal);color:#fff}
+.wallRow{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0}
+.wallChip{display:inline-flex;align-items:center;gap:5px;background:#FFF6DC;border:2px solid var(--gold);color:#7A5410;border-radius:999px;padding:6px 12px;font-family:'Baloo 2';font-weight:800;font-size:14.5px}
+.starStrand{font-size:19px;letter-spacing:2px;line-height:1.6;word-break:break-all}
+.prevRow{display:flex;gap:9px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:9px 11px;margin:6px 0}
+.prevRow .pn{font-family:'Baloo 2';font-weight:800;background:var(--amber);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex:0 0 28px;font-size:14px;margin-top:1px}
+.prevRow .pt{font-family:'Baloo 2';font-weight:800;font-size:15px;line-height:1.2}
+.prevRow .ps{font-size:13px;font-weight:700;color:var(--soft);line-height:1.35}
+.chkRow{display:flex;align-items:center;gap:9px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:9px 11px;margin:6px 0;font-size:14.5px;font-weight:700}
+.chkRow .st{margin-left:auto;font-family:'Baloo 2';font-weight:800;font-size:12.5px;white-space:nowrap}
+.chkRow button{border:2px solid var(--line);background:#FFF6DC;border-radius:999px;font-family:'Baloo 2';font-weight:800;font-size:12.5px;padding:6px 12px;cursor:pointer;min-height:40px;color:#7A5410;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#EAF6F2;border:2px solid var(--teal2);color:#0E5A50;border-radius:999px;padding:7px 13px;font-family:'Baloo 2';font-weight:800;font-size:14px;margin:4px 4px 4px 0}
+.ruleBig{font-family:'Baloo 2';font-weight:800;font-size:25px;line-height:1.3;text-align:center;color:var(--teal);padding:10px 4px}
+.storyTxt{font-size:17px;line-height:1.55;font-weight:700}
+.whyBox{background:#EAF6F2;border:2px solid var(--teal2);border-radius:16px;padding:12px 14px;margin:9px 0;font-weight:700;line-height:1.45}
+.whyBox.wob{background:#FFF6DC;border-color:var(--gold)}
+</style>
+<style>#islandBackBtn{position:fixed;bottom:calc(env(safe-area-inset-bottom, 0px) + 10px);left:10px;z-index:2147483000;background:#3B1163;border:1.5px solid rgba(255,201,77,.85);color:#F3DFA7;border-radius:999px;padding:9px 14px;font-weight:700;font-size:14px;line-height:1;text-decoration:none;box-shadow:0 4px 14px rgba(10,2,28,.45);min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}</style>
+</head>
+<body>
+
+<section class="scr" id="scr-access">
+  <div class="door">
+    <div class="hillIcon">🌞</div>
+    <h1 class="title">Sreshta's Safe &amp; Smart</h1>
+    <div class="tagline">Smart, Not Scared 🐾</div>
+  </div>
+  <div class="gRow">
+    <div class="gWrap" id="accessMira"></div>
+    <div class="bubble">Hello, Sreshta! I am Mira. I stand on lookout so we can play safe and happy. Eyes up, heart calm — shall we begin?</div>
+  </div>
+  <button class="entry" onclick="openPin('child')"><span class="face">🌟</span><span>Sreshta<small>Tap to visit your Lookout Burrow</small></span></button>
+  <button class="entry" onclick="openPin('parent')"><span class="face">🔑</span><span>Parents<small>Mom &amp; Dad — dashboard</small></span></button>
+  <p class="foot">Smart children ask. Smart children tell. Every lesson here is gentle, and Mom &amp; Dad can see all of it first.</p>
+</section>
+
+<section class="scr" id="scr-pin">
+  <div class="topbar"><button class="tb" onclick="show('scr-access')">← Back</button><span class="crumb">Secret PIN</span></div>
+  <h2 class="baloo" id="pinTitle" style="text-align:center;color:var(--teal)">PIN</h2>
+  <div class="pinDots" id="pinDots"><span></span><span></span><span></span><span></span></div>
+  <div id="pinMsg"></div>
+  <div class="pad">
+    <button onclick="pinKey('1')">1</button><button onclick="pinKey('2')">2</button><button onclick="pinKey('3')">3</button>
+    <button onclick="pinKey('4')">4</button><button onclick="pinKey('5')">5</button><button onclick="pinKey('6')">6</button>
+    <button onclick="pinKey('7')">7</button><button onclick="pinKey('8')">8</button><button onclick="pinKey('9')">9</button>
+    <button onclick="pinKey('C')">C</button><button onclick="pinKey('0')">0</button><button onclick="pinKey('⌫')">⌫</button>
+  </div>
+</section>
+
+<section class="scr" id="scr-base">
+  <div class="topbar"><button class="tb" onclick="goHome()">← My Burrow</button><span class="crumb">Day 1 — My Safety Start</span></div>
+  <div id="baseBody"></div>
+</section>
+
+<section class="scr" id="scr-home">
+  <div class="door" style="padding-top:2px">
+    <div class="hillIcon" style="font-size:34px">🌞</div>
+    <h1 class="title" style="font-size:26px">The Lookout Burrow</h1>
+  </div>
+  <div class="gRow">
+    <div class="gWrap" id="homeMira" onclick="tapMira()"></div>
+    <div class="bubble" id="homeBubble">Welcome to your Lookout Burrow, Sreshta!</div>
+  </div>
+  <div id="homeBody"></div>
+</section>
+
+<section class="scr" id="scr-mission">
+  <div class="topbar"><button class="tb" onclick="leaveMission()">← My Burrow</button><span class="crumb" id="missionCrumb">Mission</span></div>
+  <div id="missionBody"></div>
+</section>
+
+<section class="scr" id="scr-dash">
+  <div class="topbar"><button class="tb" onclick="show('scr-access')">← Exit</button><span class="crumb">Parents — Safe &amp; Smart Dashboard</span></div>
+  <div class="dashNav">
+    <button data-d="ov" onclick="dashGo('ov')">Overview</button>
+    <button data-d="preview" onclick="dashGo('preview')">Preview Centre</button>
+    <button data-d="circle" onclick="dashGo('circle')">Circle &amp; Drills</button>
+    <button data-d="base" onclick="dashGo('base')">Baseline Report</button>
+    <button data-d="ctrl" onclick="dashGo('ctrl')">Controls</button>
+  </div>
+  <div id="dash-ov"></div><div id="dash-preview"></div><div id="dash-circle"></div><div id="dash-base"></div><div id="dash-ctrl"></div>
+  <p class="foot">Safe &amp; Smart keeps everything on this device only — her circle, stars and progress live here, not in any cloud. This app never asks for or stores her address, phone number, school or any place. By-heart learning happens at home with you; here you only keep the two ticks.</p>
+</section>
+
+<a id="islandBackBtn" href="https://raghuramsuda-sys.github.io/sreshta-universe/" aria-label="Back to Starlight Island dashboard">&#8592; Island</a>
+<script>(function(){var b=document.getElementById("islandBackBtn");if(!b)return;function upd(){var on=document.querySelector(".scr.on");var show=!on||on.id==="scr-access"||on.id==="scr-home";b.style.display=show?"inline-flex":"none";}upd();new MutationObserver(upd).observe(document.documentElement,{attributes:true,attributeFilter:["class"],subtree:true});})();</script>
+<script>
+"use strict";
+/* ================= HELPERS ================= */
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const todayISO = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+
+/* ================= MIRA THE MEERKAT (SVG) ================= */
+function miraSVG() {
+  return `<svg viewBox="0 0 120 150" role="img" aria-label="Mira the Meerkat">
+  <path d="M80 140 C106 140 116 118 106 96" fill="none" stroke="#B9822F" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="105" cy="93" r="6" fill="#6E4A1F"/>
+  <ellipse cx="46" cy="143" rx="11" ry="4.5" fill="#8A5A1E"/>
+  <ellipse cx="76" cy="143" rx="11" ry="4.5" fill="#8A5A1E"/>
+  <ellipse cx="61" cy="98" rx="31" ry="46" fill="#DCA95C"/>
+  <path d="M33 84 q28 8 56 0" stroke="#A9742C" stroke-width="6" fill="none" opacity="0.55" stroke-linecap="round"/>
+  <path d="M32 104 q29 8 58 0" stroke="#A9742C" stroke-width="6" fill="none" opacity="0.55" stroke-linecap="round"/>
+  <path d="M35 122 q26 7 52 0" stroke="#A9742C" stroke-width="6" fill="none" opacity="0.5" stroke-linecap="round"/>
+  <ellipse cx="61" cy="106" rx="18" ry="31" fill="#F5E5BC"/>
+  <path d="M33 74 q-7 16 -2 30" stroke="#C08F3E" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M89 74 q7 16 2 30" stroke="#C08F3E" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <circle cx="38" cy="20" r="8" fill="#C08F3E"/><circle cx="38" cy="20" r="4" fill="#8A5A1E"/>
+  <circle cx="84" cy="20" r="8" fill="#C08F3E"/><circle cx="84" cy="20" r="4" fill="#8A5A1E"/>
+  <circle cx="61" cy="36" r="25" fill="#DCA95C"/>
+  <ellipse cx="50" cy="34" rx="8.5" ry="11" fill="#6E4A1F" transform="rotate(-10 50 34)"/>
+  <ellipse cx="72" cy="34" rx="8.5" ry="11" fill="#6E4A1F" transform="rotate(10 72 34)"/>
+  <circle cx="50" cy="34" r="3.6" fill="#241708"/><circle cx="72" cy="34" r="3.6" fill="#241708"/>
+  <circle cx="51.3" cy="32.7" r="1.2" fill="#fff"/><circle cx="73.3" cy="32.7" r="1.2" fill="#fff"/>
+  <path d="M47 47 Q61 39 75 47 Q71 60 61 61 Q51 60 47 47 Z" fill="#F5E5BC"/>
+  <ellipse cx="61" cy="48" rx="4.6" ry="3.3" fill="#5B3418"/>
+  <path d="M61 51 q0 4 -4.5 4.5 M61 51 q0 4 4.5 4.5" stroke="#8A5A1E" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+</svg>`;
+}
+
+/* ================= DATA: STAGES (titles) + PARENT PREVIEWS ================= */
+const STAGES = [
+  { name: "Stage 1 — My Safe Circle", sub: "Body safety & trusted people", missions: ["My Body Belongs to Me", "Safe Touch, Unsafe Touch", "Say NO, Run, Tell", "Secrets vs Surprises", "My Always-Tell People", "When Someone I Know Asks", "Bath & Dressing Privacy", "Photos of Me", "My Brave Voice Practice", "Circle Day"] },
+  { name: "Stage 2 — Online Smart", sub: "Her real creator life", missions: ["My Never-Share List", "Stranger Messages", "Screenshot & Show", "Sweet Words That Ask Questions", "Passwords Are Mine", "Photos Travel", "Games & Chats With Strangers", "Fake Friends & Copycat Pages", "If It Feels Odd, It Is Odd", "Online Star Day"] },
+  { name: "Stage 3 — Out & About", sub: "Roads, shops and busy places", missions: ["Road Smart", "Strangers in Person", "Lost! Stop, Stay, Shout", "Safe People to Ask", "Shops & Malls With Family", "Travelling Smart", "Parks & Playgrounds", "Crowds & Festivals", "If Someone Follows", "Out-&-About Star Day"] },
+  { name: "Stage 4 — Home Safe", sub: "Doors, calls and calm plans", missions: ["The Doorbell Rule", "Home-Alone Moments", "Kitchen Smart", "Medicines Are Not Sweets", "112 — Help Is One Call Away", "Calling Mom", "Water & Electricity Basics", "When Someone Is Hurt", "Night-Time Smart", "Home Star Day"] },
+  { name: "Stage 5 — Brave & Calm", sub: "Feelings, courage and helping", missions: ["The Tummy Feeling Is a Signal", "Freezing Is Normal", "Tell, Tell, Until Someone Listens", "Helping a Friend in Trouble", "Mean Words vs Real Danger", "New Places, Same Rules", "My Safety Kit", "Teach Mira", "Family Safety Meet", "Safety Star Day"] }
+];
+const PREVIEWS = [
+  { name: STAGES[0].name, items: [
+    "Body safety basics: private parts (swimsuit rule) are private; her body belongs to her.",
+    "Telling welcome touch (hugs, high-fives) apart from touch she dislikes: stop, move away, tell.",
+    "Say NO, Run, Tell — the three-step response, practised aloud until it feels easy.",
+    "Surprises end happily; secrets about touching, or that feel heavy, are always told to a parent.",
+    "Her Always-Tell people: who they are, and that she can tell them anything, any time.",
+    "Safety rules apply to everyone, including familiar adults — behaviour matters, not faces.",
+    "Privacy at bath and dressing time; helpers are only the people parents choose.",
+    "No photos during bath or dressing time; photos of her are shared only by parents.",
+    "Brave Voice practice: using a loud, clear voice to call for a grown-up.",
+    "Family review of her Safe Circle — keeping the trusted-adult list true and current."] },
+  { name: STAGES[1].name, items: [
+    "The never-share list: home area, school, daily routine, live whereabouts — never shared online.",
+    "Messages from people she does not know: do not answer — show a parent.",
+    "The golden reflex: screenshot anything odd and show Mom or Dad.",
+    "Flattering comments that quietly ask personal questions — spotting them, not answering.",
+    "Passwords stay private; keeping accounts safe is a parents' job.",
+    "Once a photo is posted it can travel anywhere — posting happens with parents.",
+    "Chats inside games with unknown players: no personal talk, show a parent.",
+    "Imitation pages and friend requests that are not real — check with a parent first.",
+    "The tummy feeling online: if it feels odd, stop and tell a parent.",
+    "She teaches the online rules back in her own words."] },
+  { name: STAGES[2].name, items: [
+    "Road safety: stop, look both ways, listen, cross with care.",
+    "People she does not know in person: no lifts, no gifts, no going along.",
+    "If lost: stop, stay in one place, shout for help.",
+    "Safe people to ask for help: uniformed staff, shop counters, a parent with children.",
+    "The family meeting-point rule in shops and malls.",
+    "Travel habits: known routes and known drivers, telling a parent about anything odd.",
+    "Playground safety: staying in sight and what to do if approached.",
+    "Festival and crowd safety: holding on and spotting the help desk.",
+    "If followed: loud voice, move to a safe place, tell a grown-up fast.",
+    "She teaches the out-and-about rules back."] },
+  { name: STAGES[3].name, items: [
+    "The doorbell rule: she never opens the door — she calls a parent.",
+    "If ever home alone briefly: the family plan — doors, calls, no visitors.",
+    "Kitchen basics: hot, sharp and fire items are grown-up tools.",
+    "Medicines are given only by parents — never taken alone, never treated as sweets.",
+    "112: the emergency number, and when it is time to call it.",
+    "Calling a parent calmly: who she is, what happened, what she needs — in order.",
+    "Water and electricity basics: dry hands, water away from sockets.",
+    "If someone is hurt: get a grown-up first, then 112.",
+    "Night-time: odd sounds or lights — tell a parent and stay calm.",
+    "She teaches the home rules back."] },
+  { name: STAGES[4].name, items: [
+    "The tummy feeling is a signal: pause, notice, check.",
+    "Freezing is a normal body response — and the small steps that come after it.",
+    "Tell, and keep telling, until a grown-up listens and helps.",
+    "Helping a friend in trouble: get a grown-up — never carry it alone.",
+    "Mean words vs real danger: words upset us; danger needs a grown-up fast.",
+    "The same safety rules in new places: trips, relatives' homes, camps.",
+    "Her safety kit in her head: voice, rules, circle, 112.",
+    "She explains five safety rules in her own words.",
+    "A family safety review, together.",
+    "Graduation: Safety Star certificate day."] }
+];
+
+/* ================= DATA: BASELINE B3 (Five Rules I Know) ================= */
+const B3 = [
+  { q: "At the park, a person you do not know asks: \u201CWhere do you live?\u201D", opts: ["Tell them the place", "Say \u201CI can't share that\u201D and go to a grown-up", "Run off without telling anyone"], a: 1 },
+  { q: "A message pops up on a screen from someone you do not know.", opts: ["Write back and chat", "Show it to Mom or Dad", "Delete it and tell no one"], a: 1 },
+  { q: "A grown-up says: \u201CKeep this a secret from your Mom.\u201D The secret feels heavy.", opts: ["Keep the secret", "Tell a friend only", "Tell Mom today"], a: 2 },
+  { q: "You cannot find your family in a busy market.", opts: ["Wander and look everywhere", "Stop, stay in one place, and shout for help", "Go along with any kind person who offers"], a: 1 },
+  { q: "You are at home and the doorbell rings. A voice says: \u201COpen the door!\u201D", opts: ["Open it a little and peek", "Do not open — call Mom or Dad", "Open it and ask who it is"], a: 1 }
+];
+const B2_PHRASES = ["NO! Stop!", "I will tell Mom!", "Help! I need a grown-up!"];
+const CIRCLE_PRESETS = ["Mom", "Dad", "Grandma", "Grandpa", "Aunt", "Uncle", "Teacher", "Family Friend"];
+
+/* ================= DATA: STAGE 1 MISSIONS (full content) ================= */
+const MISSIONS = [
+  { id: "s1m1", title: "My Body Belongs to Me",
+    story: "Mira loves hugs from her family. One sunny day, Mira learned a special rule. The parts of her body under her swimsuit are private. They belong to Mira — and only to Mira.",
+    q: "A grown-up Mira does not know well asks to see under her swimsuit. What should Mira do?",
+    opts: [
+      { t: "Show them quickly, then run away", why: "Showing is never the smart path. Private parts stay private — always. The smart path is to say no, move away, and tell." },
+      { t: "Say \u201CNo!\u201D in a loud voice, move away, and tell Mom", why: "Yes! That is the smart path. Her body belongs to her, she used her brave voice, and telling a trusted grown-up keeps her safe." },
+      { t: "Keep it a secret and say nothing", why: "Secrets about private parts are never kept. Telling Mom or Dad is always safe and always the right thing to do." }],
+    a: 1, rule: "My body belongs to me.",
+    say: ["My body belongs to me!", "No! Stop!"],
+    drill: "With Mom, practise saying \u201CMy body belongs to me\u201D — once soft, once medium, once strong and clear." },
+  { id: "s1m2", title: "Safe Touch, Unsafe Touch",
+    story: "Mira loves a hug from Grandma and a high-five from her teacher. Those touches make her feel happy and safe. But some touches feel yucky, or hurt, or make her tummy feel funny. Those touches are a signal.",
+    q: "Someone gives Mira a touch that makes her tummy feel funny, and she does not like it. What should Mira do?",
+    opts: [
+      { t: "Stay quiet, so she does not upset them", why: "Her feelings matter most here. A touch she does not like is a signal to act — being polite never comes before being safe." },
+      { t: "Say \u201CStop, I don't like that\u201D, move away, and tell an Always-Tell person", why: "Exactly right. Stop, move away, and tell. She can do this even if the person is someone she knows and likes." },
+      { t: "Wait and see if it happens again", why: "She does not have to wait. One touch she does not like is reason enough to say stop and tell." }],
+    a: 1, rule: "A touch I don't like means: stop, move away, tell.",
+    say: ["Stop! I don't like that!", "I will tell Mom!"],
+    drill: "Play \u201CSafe or Stop?\u201D with Mom: she names a touch (a hug from Grandma — safe; a tickle that goes on after \u201Cstop\u201D — stop and tell), and Sreshta calls out the answer." },
+  { id: "s1m3", title: "Say NO, Run, Tell",
+    story: "Mira's teacher taught the whole burrow three strong powers: Say NO in a big voice. Run to a safe place. Tell a trusted grown-up. Mira practised them until they felt easy.",
+    q: "A person Mira does not know asks her to come and see some puppies, far away. What should Mira do?",
+    opts: [
+      { t: "Go and look, but come back quickly", why: "Going along is never safe, not even for a minute. The smart path is the three powers — no, run, tell." },
+      { t: "Say \u201CNO!\u201D loudly, run to a safe place, and tell a trusted grown-up", why: "Perfect! A loud no, fast feet, and telling — the three powers working together." },
+      { t: "Say nothing and walk away slowly", why: "Walking away is a start, but her loud voice and telling a grown-up make her much safer." }],
+    a: 1, rule: "Say NO. Run. Tell.",
+    say: ["NO! Stop!", "Help! I need a grown-up!"],
+    drill: "In the garden or hall with Mom: Mom stands a little away and pretends to call her. Sreshta shouts \u201CNO!\u201D, runs to Mom, and tells what happened." },
+  { id: "s1m4", title: "Secrets vs Surprises",
+    story: "Mira's family hid a birthday cake for Grandma. \u201CIt's a surprise,\u201D said Dad. \u201CIt will make her smile on Saturday.\u201D Mira smiled too. Surprises end in happiness. But some secrets feel heavy and yucky — those are different.",
+    q: "Someone tells Mira: \u201CThis is our secret. Never tell your Mom.\u201D The secret makes her tummy feel heavy. What should Mira do?",
+    opts: [
+      { t: "Keep the secret, because she promised", why: "A promise to keep a heavy secret is a promise she never has to keep. Telling Mom is always allowed and always right." },
+      { t: "Tell Mom the same day — heavy secrets are always told", why: "Yes! Surprises end in smiles. Secrets that feel heavy, or are about touching, are told to Mom or Dad right away." },
+      { t: "Tell only her best friend", why: "Friends are lovely, but heavy secrets go to a grown-up first. Mom and Dad know how to help." }],
+    a: 1, rule: "Surprises end in smiles. Heavy secrets are always told.",
+    say: ["I will tell Mom!", "No secrets from Mom and Dad!"],
+    drill: "Play \u201CSurprise or Secret?\u201D with Mom: she names one (a hidden gift, a party plan, a touching secret) and Sreshta calls out which it is — and what to do." },
+  { id: "s1m5", title: "My Always-Tell People",
+    story: "On the burrow wall hang Mira's special stars — her Always-Tell people. If anything ever feels odd, Mira can tell any one of them, any time, about anything. They will always listen.",
+    q: "Something odd happened and Mira feels funny inside. Mom is busy cooking. What should Mira do?",
+    opts: [
+      { t: "Wait until next week to tell", why: "Telling works best right away. Her Always-Tell people want to hear it today, even when they are busy." },
+      { t: "Tell Mom now — or tell another Always-Tell person", why: "Right! There is always someone on her star wall she can tell — today, not later." },
+      { t: "Keep it in her heart and forget it", why: "Feelings that stay inside can grow heavy. Telling shares the load and keeps her safe." }],
+    a: 1, rule: "I can tell my Always-Tell people anything, any time.",
+    say: ["I will tell Mom!", "Please listen — this is important."],
+    drill: "Point to each person on her Safe Circle wall and say their relation name out loud, with Mom. Finish by picking who she would tell first." },
+  { id: "s1m6", title: "When Someone I Know Asks",
+    story: "Most people Mira knows are kind. But Mira learned that safety is about what a person DOES, not who they are. If anyone — even someone she knows — asks her to break a safety rule, the rule still stands.",
+    q: "A grown-up Mira knows asks her to keep a touching secret from Mom. What should Mira do?",
+    opts: [
+      { t: "Keep it, because she knows this person well", why: "Knowing someone does not change the rule. Touching secrets are always told to Mom or Dad — always." },
+      { t: "Say \u201CNo\u201D, move away, and tell Mom — the rule is the same for everyone", why: "Exactly. Safety rules do not change for familiar faces. No, move away, tell." },
+      { t: "Say she will think about it", why: "There is nothing to think over — a touching secret is told the same day. Waiting only makes it heavier." }],
+    a: 1, rule: "Safety rules stay the same for everyone.",
+    say: ["No! I will tell Mom!", "The rule is the same for everyone!"],
+    drill: "With Mom, practise the words \u201CNo. I will tell Mom.\u201D — say them calmly, then say them big and strong." },
+  { id: "s1m7", title: "Bath & Dressing Privacy",
+    story: "Mira is growing up. At bath time and dressing time, Mira's private parts stay private. She is learning to wash and dress herself, and she knows who may help her — only the people Mom and Dad say.",
+    q: "Mira is getting dressed. Someone who is NOT on Mom and Dad's helper list wants to come in. What should Mira do?",
+    opts: [
+      { t: "Let them in, so she is not rude", why: "Privacy is never rude. Her dressing time belongs to her, and helpers are only the people Mom and Dad choose." },
+      { t: "Say \u201CPlease wait outside — I am dressing\u201D, and tell Mom", why: "Perfect and polite. A closed door, clear words, and telling Mom — that is privacy power." },
+      { t: "Hide and say nothing", why: "Hiding is not needed. Clear words work: \u201CPlease wait outside.\u201D Then tell Mom." }],
+    a: 1, rule: "My private time is private. Helpers are chosen by Mom and Dad.",
+    say: ["Please wait — I am dressing!", "I will tell Mom!"],
+    drill: "Practise knock-and-wait at home: Mom knocks, Sreshta says \u201CPlease wait, I am dressing!\u201D, and Mom waits. Then swap roles." },
+  { id: "s1m8", title: "Photos of Me",
+    story: "Mira loves photos with her family. Click! But Mira learned: photos of her at bath time or dressing time are never taken — not by anyone. And photos of her are shared only by Mom and Dad.",
+    q: "Someone wants to take a photo of Mira while she is dressing. What should Mira do?",
+    opts: [
+      { t: "Pose quickly, so it is over fast", why: "Never. Photos while dressing are always a no. The smart path is to say no and tell Mom or Dad." },
+      { t: "Say \u201CNo photos now\u201D, move away, and tell Mom or Dad", why: "Yes! No photos of private moments, ever — and telling keeps her safe." },
+      { t: "Take the photo herself, so she can delete it", why: "The photo should never be taken at all. Saying no and telling a parent is the smart path." }],
+    a: 1, rule: "No photos of private moments. Ever.",
+    say: ["No photos now!", "I will tell Mom and Dad!"],
+    drill: "Sort pretend photo cards with Mom: a family picnic photo — \u201CFine, with Mom and Dad\u201D; a dressing-time photo — \u201CNever!\u201D Say the rule out loud together." },
+  { id: "s1m9", title: "My Brave Voice Practice",
+    story: "Mira's voice is small when she whispers to the wind. But when Mira stands tall, breathes in, and uses her Brave Voice, the whole hill can hear her. A brave voice is a safety tool she always carries.",
+    q: "Mira needs help in a busy place, and a trusted grown-up is a little far away. What should Mira do?",
+    opts: [
+      { t: "Whisper, and hope someone hears", why: "A whisper can get lost in a busy place. Her Brave Voice is made for moments like this — loud and clear is safe." },
+      { t: "Stand tall, breathe in, and call \u201CHelp! I need a grown-up!\u201D in her biggest brave voice", why: "That's it! Standing tall and calling out brings help fast. Big voices are for safety." },
+      { t: "Sit down quietly and wait", why: "Waiting quietly is slower than her voice. Calling for a grown-up is the smart path." }],
+    a: 1, rule: "My brave voice brings help.",
+    say: ["Help! I need a grown-up!", "NO! Stop!", "I will tell Mom!"],
+    drill: "Voice ladder with Mom, somewhere open: say \u201CHelp! I need a grown-up!\u201D at whisper level, talking level, calling level, and full Brave Voice level." },
+  { id: "s1m10", title: "Circle Day",
+    story: "Once in a while, Mira's family sits together and looks at the star wall. Is everyone still close? Is there a new teacher to add? Circle Day keeps her wall true and strong.",
+    q: "A new year of classes starts, and Mira has a new teacher she trusts. What should Mira's family do on Circle Day?",
+    opts: [
+      { t: "Leave the wall just as it is", why: "The wall should always match her real life today. Adding a trusted teacher keeps it true." },
+      { t: "Add the teacher to the Safe Circle, together with Mom and Dad", why: "Yes! Circles are updated together, with Mom and Dad. A true wall is a strong wall." },
+      { t: "Mira adds anyone she likes, all by herself", why: "Circle people are chosen with Mom and Dad, always. Grown-up eyes on the circle keep it safe." }],
+    a: 1, rule: "My circle is chosen with Mom and Dad — and kept true.",
+    say: ["My circle keeps me safe!", "I will tell Mom and Dad!"],
+    drill: "Family Circle Day at home: look at the burrow wall together, say each relation name out loud, and talk about whether anyone new belongs there." }
+];
+const TITLES = ["Little Lookout", "Watchful Friend", "Smart Scout", "Safety Keeper", "Brave Guardian", "Safety Star"];
+function titleFor(doneCount) {
+  if (doneCount >= 50) return TITLES[5];
+  if (doneCount >= 35) return TITLES[4];
+  if (doneCount >= 20) return TITLES[3];
+  if (doneCount >= 10) return TITLES[2];
+  if (doneCount >= 3) return TITLES[1];
+  return TITLES[0];
+}
+const MIRA_LINES = [
+  "Eyes up, heart calm. You are doing beautifully, Sreshta.",
+  "Smart children ask. Smart children tell.",
+  "Your brave voice is a tool you always carry.",
+  "A little practice today keeps the whole hill safe.",
+  "You knew just what to do. I am proud of you."
+];
+
+/* ================= STATE ================= */
+const LS_KEY = "safesmart_v1";
+function freshState() {
+  return { v: 1, baseline: null, circle: [], gate: false, done: [], stars: 0,
+    missionProg: null, drills: {}, byHeart: { phone: false, address: false },
+    reward: "A family evening of her choice", previewSeen: false };
+}
+let S = freshState();
+try { const raw = localStorage.getItem(LS_KEY); if (raw) { const p = JSON.parse(raw); if (p && p.v === 1) { const f = freshState(); Object.assign(f, p); S = f; } } } catch (e) {}
+function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
+
+/* ================= NAV / PIN ================= */
+let pinRole = "child", pinBuf = "";
+function show(id) { $$(".scr").forEach(x => x.classList.toggle("on", x.id === id)); window.scrollTo(0, 0); }
+function goHome() { renderHome(); show("scr-home"); }
+function openPin(role) { pinRole = role; pinBuf = ""; $("#pinMsg").textContent = ""; $("#pinTitle").textContent = role === "child" ? "Sreshta's PIN" : "Parents' PIN"; drawDots(); show("scr-pin"); }
+function drawDots() { $$("#pinDots span").forEach((s, i) => s.classList.toggle("f", i < pinBuf.length)); }
+function pinKey(k) {
+  if (k === "C") pinBuf = "";
+  else if (k === "⌫") pinBuf = pinBuf.slice(0, -1);
+  else if (pinBuf.length < 4) pinBuf += k;
+  drawDots();
+  if (pinBuf.length === 4) {
+    const want = pinRole === "child" ? "2017" : "2208";
+    if (pinBuf === want) {
+      pinBuf = "";
+      if (pinRole === "child") goHome();
+      else { renderDash(); dashGo("ov"); show("scr-dash"); }
+    } else {
+      $("#pinMsg").textContent = "That PIN did not match. Try again, slowly.";
+      pinBuf = ""; drawDots();
+    }
+  }
+}
+let miraTapIx = 0;
+function tapMira() { const b = $("#homeBubble"); if (b) { b.textContent = MIRA_LINES[miraTapIx % MIRA_LINES.length]; miraTapIx++; } }
+
+/* ================= HOME ================= */
+function missionUnlocked(ix) {
+  if (!S.baseline) return false;
+  if (!S.gate) return false;
+  if (ix === 0) return true;
+  return S.done.includes(MISSIONS[ix - 1].id);
+}
+function renderHome() {
+  $("#homeMira").innerHTML = miraSVG();
+  const done = S.done.length;
+  let h = "";
+  if (S.missionProg) {
+    const pm = MISSIONS[S.missionProg.ix];
+    h += `<div class="card goldy cele"><div class="stepTag">CONTINUE YOUR MISSION</div>
+      <div class="baloo" style="font-size:19px">▶ Continue: Mission ${S.missionProg.ix + 1} — ${esc(pm.title)}</div>
+      <div style="font-weight:700">You left it at Step ${S.missionProg.step} of 6. Mira saved your place.</div>
+      <button class="btn gold" onclick="startMission(${S.missionProg.ix})">Continue →</button></div>`;
+  }
+  if (!S.baseline) {
+    h += `<div class="card tealy"><div class="stepTag" style="color:#FFE9B8">DAY 1 — MY SAFETY START</div>
+      <div class="baloo" style="font-size:20px">First, build your Safe Circle with Mom or Dad</div>
+      <div style="font-weight:700">Three gentle steps: My Safe Circle, My Brave Voice, and Five Rules I Know.</div>
+      <button class="btn gold" onclick="startBaseline()">Start Day 1 →</button></div>`;
+  } else {
+    h += `<div class="card sandy"><span class="goldTag">★ DAY 1 — LOCKED IN GOLD ★</span>
+      <div style="font-weight:700;margin-top:6px">My Safety Start is done and kept forever.</div></div>`;
+  }
+  h += `<div class="grid3">
+    <div class="stat"><div class="n">${esc(titleFor(done))}</div><div class="l">SAFETY TITLE</div></div>
+    <div class="stat"><div class="n">${S.stars} ⭐</div><div class="l">SAFETY STARS</div></div>
+    <div class="stat"><div class="n">${done} / 10</div><div class="l">STAGE 1 MISSIONS</div></div></div>`;
+  h += `<div class="card"><div class="stepTag">MY SAFETY STAR STRING</div>
+    ${S.stars ? `<div class="starStrand">${"⭐".repeat(Math.min(S.stars, 50))}</div>` : `<div style="font-weight:700">Your first star is waiting, Sreshta.</div>`}</div>`;
+  if (S.circle.length) {
+    h += `<div class="card sandy"><div class="stepTag">MY SAFE CIRCLE — ON THE BURROW WALL</div><div class="wallRow">` +
+      S.circle.map(p => `<span class="wallChip">${p.alwaysTell ? "⭐ " : ""}${esc(p.label)}</span>`).join("") +
+      `</div><div style="font-weight:700;font-size:13.5px">⭐ = my Always-Tell people. I can tell them anything, any time.</div></div>`;
+  }
+  if (S.byHeart.phone || S.byHeart.address) {
+    h += `<div class="card"><div class="stepTag">BY-HEART BADGES — MOM &amp; DAD SAY I KNOW THESE</div><div>` +
+      (S.byHeart.phone ? `<span class="badge">📞 I know a parent's number by heart</span>` : "") +
+      (S.byHeart.address ? `<span class="badge">🏠 I know my home address by heart</span>` : "") + `</div></div>`;
+  }
+  const nxt = MISSIONS.findIndex(m => !S.done.includes(m.id));
+  h += `<div class="card goldy"><div class="stepTag">NEXT REWARD</div>
+    <div class="baloo" style="font-size:19px">🎁 ${esc(S.reward)}</div>
+    <div style="font-weight:700;font-size:13.5px">Set by Mom &amp; Dad in the dashboard.</div></div>`;
+  h += `<h3 class="baloo" style="color:var(--amber2);margin:14px 0 4px">${STAGES[0].name}</h3>
+    <div style="font-weight:700;color:var(--soft);font-size:13.5px">${STAGES[0].sub}</div>`;
+  if (!S.baseline) {
+    h += `<div class="card"><div class="baloo" style="font-size:17px">🔒 Missions open after Day 1</div><div style="font-weight:700">Finish My Safety Start with Mom or Dad first — it takes just a few minutes.</div></div>`;
+  } else if (!S.gate) {
+    h += `<div class="card"><div class="baloo" style="font-size:17px">💛 One step for Mom or Dad first</div><div style="font-weight:700">Mom or Dad will open this stage with you. They look at it first in their Preview Centre, then it opens here — together.</div></div>`;
+  } else {
+    MISSIONS.forEach((m, ix) => {
+      const isDone = S.done.includes(m.id);
+      const un = missionUnlocked(ix);
+      h += `<button class="mrow ${isDone ? "done" : ""} ${un ? "" : "lock"}" ${un ? `onclick="startMission(${ix})"` : "disabled"}>
+        <span class="no">${isDone ? "⭐" : (ix + 1)}</span>
+        <span><span class="mt">Mission ${ix + 1} — ${esc(m.title)}</span><br>
+        <span class="ms">${isDone ? "Star earned — tap to visit again" : un ? (ix === nxt ? "Today's mission — tap to start" : "Tap to start") : "Opens after the mission before it"}</span></span></button>`;
+    });
+  }
+  for (let si = 1; si < STAGES.length; si++) {
+    h += `<div class="stageCard"><div class="st1">🔒 ${STAGES[si].name}</div>
+      <div style="font-size:12.5px;font-weight:700">${STAGES[si].sub} — coming after Stage 1</div>
+      <div style="font-size:12.5px;font-weight:700;margin-top:3px">${STAGES[si].missions.map((t, i) => (i + 1) + ". " + esc(t)).join(" · ")}</div></div>`;
+  }
+  $("#homeBody").innerHTML = h;
+}
+
+/* ================= BASELINE (Day 1) ================= */
+let BP = "b1";               // b1 | b2 | b3
+let bWork = null;            // working copy while baseline runs
+function baseStep() { return BP; }
+function startBaseline() {
+  BP = "b1";
+  bWork = { circle: S.circle.map(p => ({ label: p.label, alwaysTell: !!p.alwaysTell })),
+            said: B2_PHRASES.map(() => false), b3ix: 0, b3: [] };
+  renderBase(); show("scr-base");
+}
+function baseReady() { return bWork.circle.length >= 2 && bWork.circle.some(p => p.alwaysTell); }
+function baseToggle(label) {
+  const ix = bWork.circle.findIndex(p => p.label === label);
+  if (ix >= 0) bWork.circle.splice(ix, 1);
+  else { if (bWork.circle.length >= 6) return; bWork.circle.push({ label, alwaysTell: false }); }
+  renderBase();
+}
+function baseAlways(label) {
+  const p = bWork.circle.find(p => p.label === label); if (!p) return;
+  if (!p.alwaysTell && bWork.circle.filter(x => x.alwaysTell).length >= 3) return;
+  p.alwaysTell = !p.alwaysTell; renderBase();
+}
+function baseRemove(label) { bWork.circle = bWork.circle.filter(p => p.label !== label); renderBase(); }
+function baseAddCustom() {
+  const inp = $("#custLbl"); if (!inp) return;
+  const v = inp.value.trim().replace(/\s+/g, " ");
+  if (!/^[A-Za-z ]{2,14}$/.test(v)) { inp.value = ""; inp.placeholder = "One relation word, letters only (e.g. Cousin)"; return; }
+  const label = v.charAt(0).toUpperCase() + v.slice(1);
+  if (bWork.circle.some(p => p.label.toLowerCase() === label.toLowerCase())) { inp.value = ""; return; }
+  if (bWork.circle.length >= 6) return;
+  bWork.circle.push({ label, alwaysTell: false }); renderBase();
+}
+function baseB1Done() { if (!baseReady()) return; BP = "b2"; renderBase(); }
+function baseSay(i) { bWork.said[i] = true; renderBase(); }
+function baseB2Done() { if (!bWork.said.every(Boolean)) return; BP = "b3"; renderBase(); }
+function baseB3Answer(ci) {
+  if (bWork.b3ix >= B3.length) return;
+  bWork.b3.push(ci); bWork.b3ix++; renderBase();
+}
+function baseFinish() {
+  if (bWork.b3ix < B3.length) return;
+  S.circle = bWork.circle.map(p => ({ label: p.label, alwaysTell: !!p.alwaysTell }));
+  S.baseline = { date: todayISO(), brave: true,
+    b3: bWork.b3.map((ci, i) => ({ pick: ci, smart: ci === B3[i].a })) };
+  bWork = null; save(); goHome();
+}
+function renderBase() {
+  const b = $("#baseBody"); if (!b || !bWork) return;
+  let h = "";
+  if (BP === "b1") {
+    h += `<div class="gRow"><div class="gWrap small">${miraSVG()}</div>
+      <div class="bubble" style="font-size:15.5px">Grown-ups first for this one! Together, choose the people on your Safe Circle wall. Tap a name to add it. Tap the star to make someone an Always-Tell person.</div></div>`;
+    h += `<div class="card"><div class="stepTag">B1 — MY SAFE CIRCLE (CHOOSE UP TO 6)</div><div class="chipRow">` +
+      CIRCLE_PRESETS.map(l => `<button class="chip ${bWork.circle.some(p => p.label === l) ? "sel" : ""}" onclick="baseToggle('${l}')">${l}</button>`).join("") + `</div>
+      <div style="font-weight:700;font-size:13.5px">Someone else? Add a relation word — like Cousin or Neighbour. Relations only, never a full name.</div>
+      <input type="text" id="custLbl" maxlength="14" placeholder="Custom relation (e.g. Cousin)">
+      <button class="btn ghost" onclick="baseAddCustom()">Add to my circle</button></div>`;
+    if (bWork.circle.length) {
+      h += `<div class="card sandy"><div class="stepTag">MY CIRCLE SO FAR — TAP ⭐ FOR ALWAYS-TELL (UP TO 3)</div>` +
+        bWork.circle.map(p => `<div class="person"><span class="pl">${esc(p.label)}</span>
+          <button class="starBtn ${p.alwaysTell ? "on" : ""}" onclick="baseAlways('${esc(p.label)}')">${p.alwaysTell ? "⭐ Always Tell" : "Make Always-Tell"}</button>
+          <button class="rmBtn" onclick="baseRemove('${esc(p.label)}')">Remove</button></div>`).join("") + `</div>`;
+    }
+    h += `<button class="btn" id="b1Next" ${baseReady() ? "" : "disabled"} onclick="baseB1Done()">My circle is ready →</button>
+      <div style="font-weight:700;font-size:13px;text-align:center">Add at least 2 people, with at least 1 Always-Tell star.</div>`;
+  } else if (BP === "b2") {
+    h += `<div class="card"><div class="stepTag">B2 — MY BRAVE VOICE</div>
+      <div class="baloo" style="font-size:19px">Say each one OUT LOUD, in your brave voice</div>
+      <div style="font-weight:700">Tap a phrase after you have said it for real. Your voice is the tool — use it now, before you ever need it.</div></div>`;
+    h += B2_PHRASES.map((p, i) => `<button class="phrase ${bWork.said[i] ? "said" : ""}" onclick="baseSay(${i})">${bWork.said[i] ? "✓ " : ""}${esc(p)}</button>`).join("");
+    h += `<button class="btn" id="b2Next" ${bWork.said.every(Boolean) ? "" : "disabled"} onclick="baseB2Done()">A parent heard me say them ✓</button>`;
+  } else {
+    const i = Math.min(bWork.b3ix, B3.length - 1);
+    h += `<div class="card"><div class="stepTag">B3 — FIVE RULES I KNOW · CARD ${Math.min(bWork.b3ix + 1, 5)} OF 5</div>
+      <div style="font-weight:700">No scores here. Just tell Mira what you think — Mom &amp; Dad will see your answers in their report.</div></div>`;
+    if (bWork.b3ix < B3.length) {
+      h += `<div class="card goldy"><div class="baloo" style="font-size:19px;line-height:1.35">${esc(B3[i].q)}</div></div>` +
+        B3[i].opts.map((o, ci) => `<button class="opt" onclick="baseB3Answer(${ci})">${esc(o)}</button>`).join("");
+    } else {
+      h += `<div class="card tealy cele"><div class="baloo" style="font-size:21px">You did it, Sreshta! 🌟</div>
+        <div style="font-weight:700">Your Safe Circle is on the wall, your brave voice is ready, and Mira heard your five answers.</div>
+        <button class="btn gold" onclick="baseFinish()">Finish My Safety Start →</button></div>`;
+    }
+  }
+  b.innerHTML = h;
+}
+
+/* ================= PARENT PREVIEW GATE ================= */
+function openGate() { S.gate = true; S.previewSeen = true; save(); renderDash(); dashGo("preview"); }
+function closeGate() { S.gate = false; save(); renderDash(); dashGo("preview"); }
+
+/* ================= MISSION ENGINE ================= */
+let M = null; // { ix, step, found, said:[], picked:-1 }
+const STEP_NAMES = ["", "Mira's Story", "What Should Mira Do?", "The Rule", "Say It Loud", "Real Drill", "Safety Star Moment"];
+function startMission(ix) {
+  if (!missionUnlocked(ix) && !(S.missionProg && S.missionProg.ix === ix)) return false;
+  if (!missionUnlocked(ix)) return false;
+  const m = MISSIONS[ix];
+  if (S.missionProg && S.missionProg.ix === ix) {
+    const p = S.missionProg;
+    M = { ix, step: p.step, found: !!p.found, said: m.say.map((_, i) => !!(p.said && p.said[i])), picked: -1 };
+  } else {
+    M = { ix, step: 1, found: false, said: m.say.map(() => false), picked: -1 };
+    S.missionProg = { ix, step: 1, found: false, said: M.said.slice() };
+    save();
+  }
+  renderMission(); show("scr-mission"); return true;
+}
+function syncProg() {
+  if (!M) return;
+  S.missionProg = { ix: M.ix, step: M.step, found: M.found, said: M.said.slice() };
+  save();
+}
+function canGo(n) {
+  if (!M) return false;
+  if (n <= M.step) return true;
+  if (n === M.step + 1) {
+    if (M.step === 2 && !M.found) return false;
+    if (M.step === 4 && !M.said.every(Boolean)) return false;
+    return true;
+  }
+  return false;
+}
+function mStep(n) { if (!M || !canGo(n)) return; M.step = n; syncProg(); renderMission(); }
+function choicePick(i) {
+  if (!M || M.step !== 2) return;
+  const m = MISSIONS[M.ix];
+  M.picked = i;
+  if (i === m.a) M.found = true;
+  syncProg(); renderMission();
+}
+function sayTap(i) { if (!M || M.step !== 4) return; M.said[i] = true; syncProg(); renderMission(); }
+function drillDone() {
+  if (!M || M.step !== 5) return;
+  S.drills[MISSIONS[M.ix].id] = true; save();
+  M.step = 6; syncProg(); renderMission();
+}
+function drillLater() { if (!M || M.step !== 5) return; M.step = 6; syncProg(); renderMission(); }
+function finishMission() {
+  if (!M) return;
+  const m = MISSIONS[M.ix];
+  if (!S.done.includes(m.id)) { S.done.push(m.id); S.stars = S.done.length; }
+  S.missionProg = null; M = null; save(); goHome();
+}
+function leaveMission() { if (M) syncProg(); M = null; goHome(); }
+function renderMission() {
+  if (!M) return;
+  const m = MISSIONS[M.ix];
+  $("#missionCrumb").textContent = "Mission " + (M.ix + 1) + " of 10 — Stage 1";
+  let h = `<div class="baloo" style="font-size:21px;color:var(--amber2)">Mission ${M.ix + 1} — ${esc(m.title)}</div>
+    <div class="stepTag" style="margin:2px 0 8px">STEP ${M.step} OF 6 — ${STEP_NAMES[M.step].toUpperCase()}</div>`;
+  if (M.step === 1) {
+    h += `<div class="gRow"><div class="gWrap small">${miraSVG()}</div>
+      <div class="bubble" style="font-size:15.5px">Listen to my story first, Sreshta. Then you decide what I should do.</div></div>
+      <div class="card"><p class="storyTxt" style="margin:4px 0">${esc(m.story)}</p></div>
+      <button class="btn" onclick="mStep(2)">What should Mira do? →</button>`;
+  } else if (M.step === 2) {
+    h += `<div class="card goldy"><div class="baloo" style="font-size:18.5px;line-height:1.35">${esc(m.q)}</div></div>`;
+    h += m.opts.map((o, i) => `<button class="opt ${M.picked === i ? (i === m.a ? "pick" : "wig") : ""}" onclick="choicePick(${i})">${esc(o.t)}</button>`).join("");
+    if (M.picked >= 0) {
+      const o = m.opts[M.picked];
+      h += `<div class="whyBox ${M.found ? "" : "wob"}"><div class="baloo" style="font-size:16.5px">${M.found ? "⭐ That's the smart path!" : "Mira is listening — here is why:"}</div>
+        <div>${esc(o.why)}</div>
+        ${M.found ? `<button class="btn" onclick="mStep(3)">See the Rule →</button>` : `<div style="font-weight:800;margin-top:6px">Now choose again — you can do it.</div>`}</div>`;
+    }
+  } else if (M.step === 3) {
+    h += `<div class="card tealy"><div class="stepTag" style="color:#FFE9B8">THE RULE — SAY IT WITH MIRA</div>
+      <div class="ruleBig" style="color:#fff">${esc(m.rule)}</div></div>
+      <button class="btn" onclick="mStep(4)">Say It Loud →</button>`;
+  } else if (M.step === 4) {
+    h += `<div class="card"><div class="stepTag">SAY IT LOUD</div>
+      <div style="font-weight:700">Stand tall. Read each phrase OUT LOUD in your brave voice, then tap it.</div></div>`;
+    h += m.say.map((p, i) => `<button class="phrase ${M.said[i] ? "said" : ""}" onclick="sayTap(${i})">${M.said[i] ? "✓ " : ""}${esc(p)}</button>`).join("");
+    h += `<button class="btn" ${M.said.every(Boolean) ? "" : "disabled"} onclick="mStep(5)">I said them all →</button>`;
+  } else if (M.step === 5) {
+    const doneDrill = !!S.drills[m.id];
+    h += `<div class="card"><div class="stepTag">REAL DRILL — WITH MOM</div>
+      <div class="baloo" style="font-size:18px;line-height:1.35">${esc(m.drill)}</div>
+      <div style="font-weight:700;margin-top:6px">${doneDrill ? "This drill is already ticked done. Lovely — practise keeps it strong." : "Do it together now, or later today — Mom can also tick it in the dashboard."}</div></div>
+      <button class="btn gold" onclick="drillDone()">Done with Mom ✓</button>
+      <button class="btn ghost" onclick="drillLater()">We will do it later →</button>`;
+  } else {
+    const first = !S.done.includes(m.id);
+    h += `<div class="card goldy cele" style="text-align:center"><div style="font-size:44px">${first ? "⭐" : "🌟"}</div>
+      <div class="baloo" style="font-size:22px">${first ? "A new star joins your string!" : "You visited this star again!"}</div>
+      <div style="font-weight:700">${first ? "Mission " + (M.ix + 1) + " complete. You are a " + titleFor(S.done.length + 1) + " in the making, Sreshta." : "Stars are earned once — and yours is already shining on the string."}</div>
+      <div class="ruleBig" style="font-size:20px">${esc(m.rule)}</div>
+      <button class="btn" onclick="finishMission()">Back to my Burrow →</button></div>`;
+  }
+  $("#missionBody").innerHTML = h;
+}
+
+/* ================= DASHBOARD ================= */
+let resetArmed = false;
+function dashGo(name) {
+  $$("#scr-dash .dashNav button").forEach(b => b.classList.toggle("sel", b.getAttribute("data-d") === name));
+  ["ov", "preview", "circle", "base", "ctrl"].forEach(x => { const el = $("#dash-" + x); if (el) el.classList.toggle("hidden", x !== name); });
+}
+function renderDash() {
+  /* ----- Overview ----- */
+  const done = S.done.length, drillsDone = MISSIONS.filter(m => S.drills[m.id]).length;
+  $("#dash-ov").innerHTML = `<div class="grid3">
+    <div class="stat"><div class="n">${esc(titleFor(done))}</div><div class="l">HER TITLE</div></div>
+    <div class="stat"><div class="n">${S.stars} ⭐</div><div class="l">SAFETY STARS</div></div>
+    <div class="stat"><div class="n">${done} / 10</div><div class="l">STAGE 1 MISSIONS</div></div></div>
+    <div class="card"><div class="stepTag">AT A GLANCE</div>
+    <div style="font-weight:700;line-height:1.55">
+    Baseline (Day 1): ${S.baseline ? "Done on " + esc(S.baseline.date) + " — locked in gold" : "Not done yet"}<br>
+    Stage 1 preview gate: ${S.gate ? "OPEN — Stage 1 is open for Sreshta" : "CLOSED — open it in the Preview Centre"}<br>
+    Safe Circle: ${S.circle.length} people (${S.circle.filter(p => p.alwaysTell).length} Always-Tell)<br>
+    Real drills done with Mom: ${drillsDone} / 10<br>
+    Knows a parent's phone number by heart: ${S.byHeart.phone ? "Yes ✓" : "Not yet"}<br>
+    Knows her home address by heart: ${S.byHeart.address ? "Yes ✓" : "Not yet"}</div></div>
+    <div class="card goldy"><div class="stepTag">NEXT REWARD</div><div class="baloo" style="font-size:18px">🎁 ${esc(S.reward)}</div></div>`;
+  /* ----- Preview Centre ----- */
+  let pv = `<div class="card"><div class="stepTag">HOW THIS WORKS</div>
+    <div style="font-weight:700;line-height:1.5">Every lesson, for every stage, is listed here in plain adult words — before Sreshta ever sees it. Stage 1 stays closed for her until you open its gate below.</div></div>`;
+  PREVIEWS.forEach((st, si) => {
+    pv += `<div class="card ${si === 0 ? "sandy" : ""}"><div class="baloo" style="font-size:18px;color:var(--amber2)">${esc(st.name)}</div>`;
+    if (si === 0) {
+      pv += S.gate
+        ? `<div class="badge" style="margin:6px 0">✓ Stage 1 is OPEN for Sreshta</div>
+           <button class="btn ghost" onclick="closeGate()">Close Stage 1 again</button>`
+        : `<div style="font-weight:700;margin:6px 0">Read these ten summaries, then open the stage when you are ready. Most families read them together first.</div>
+           <button class="btn gold" id="gateBtn" onclick="openGate()">We have seen it — open for Sreshta</button>`;
+    } else {
+      pv += `<div style="font-weight:700;font-size:13px;margin:4px 0">Preview only in this sample — this stage's own gate arrives with its missions in the full build.</div>`;
+    }
+    pv += st.items.map((s, i) => `<div class="prevRow"><span class="pn">${i + 1}</span><span><span class="pt">${esc(STAGES[si].missions[i])}</span><br><span class="ps">${esc(s)}</span></span></div>`).join("");
+    pv += `</div>`;
+  });
+  $("#dash-preview").innerHTML = pv;
+  /* ----- Circle & Drills ----- */
+  let cd = `<div class="card"><div class="stepTag">HER SAFE CIRCLE (RELATION LABELS ONLY)</div>` +
+    (S.circle.length ? S.circle.map(p => `<div class="person"><span class="pl">${esc(p.label)}</span>${p.alwaysTell ? `<span class="goldTag">⭐ Always Tell</span>` : ""}</div>`).join("")
+      : `<div style="font-weight:700">No circle yet — it is built together on Day 1.</div>`) + `</div>`;
+  cd += `<div class="card"><div class="stepTag">BY-HEART TICKS (YES / NOT YET — NOTHING IS EVER TYPED HERE)</div>
+    <div class="chkRow"><span>She knows a parent's phone number by heart</span><span class="st">${S.byHeart.phone ? "Yes ✓" : "Not yet"}</span><button onclick="toggleByHeart('phone')">${S.byHeart.phone ? "Set: not yet" : "Set: yes"}</button></div>
+    <div class="chkRow"><span>She knows her home address by heart</span><span class="st">${S.byHeart.address ? "Yes ✓" : "Not yet"}</span><button onclick="toggleByHeart('address')">${S.byHeart.address ? "Set: not yet" : "Set: yes"}</button></div>
+    <div style="font-weight:700;font-size:13px">Practise these at home, in real life. The app only keeps the tick.</div></div>`;
+  cd += `<div class="card"><div class="stepTag">REAL DRILLS — STAGE 1 (TICK WHEN DONE TOGETHER)</div>` +
+    MISSIONS.map(m => `<div class="chkRow"><span><b>${esc(m.title)}</b><br><span style="font-size:13px;color:var(--soft)">${esc(m.drill)}</span></span><span class="st">${S.drills[m.id] ? "Done ✓" : "Open"}</span><button onclick="toggleDrill('${m.id}')">${S.drills[m.id] ? "Set: open" : "Tick done"}</button></div>`).join("") + `</div>`;
+  $("#dash-circle").innerHTML = cd;
+  /* ----- Baseline Report ----- */
+  let br = "";
+  if (!S.baseline) {
+    br = `<div class="card"><div class="baloo" style="font-size:18px">Day 1 has not happened yet</div><div style="font-weight:700">Her baseline report will appear here after My Safety Start.</div></div>`;
+  } else {
+    br = `<div class="card goldy"><span class="goldTag">★ BASELINE — ${esc(S.baseline.date)} ★</span>
+      <div style="font-weight:700;margin-top:6px">Brave Voice (B2): she said all three phrases out loud, confirmed by a parent.<br>
+      Safe Circle (B1): ${S.circle.map(p => esc(p.label) + (p.alwaysTell ? " ⭐" : "")).join(", ")}</div></div>`;
+    br += `<div class="card"><div class="stepTag">B3 — FIVE RULES I KNOW: HER STARTING INSTINCTS</div>` +
+      S.baseline.b3.map((r, i) => `<div class="prevRow"><span class="pn">${i + 1}</span><span><span class="pt">${esc(B3[i].q)}</span><br>
+        <span class="ps">She picked: \u201C${esc(B3[i].opts[r.pick])}\u201D — ${r.smart ? "the smart path ✓" : "one to practise together"}</span></span></div>`).join("") + `</div>`;
+  }
+  $("#dash-base").innerHTML = br;
+  /* ----- Controls ----- */
+  $("#dash-ctrl").innerHTML = `<div class="card"><div class="stepTag">NEXT REWARD (SHOWN ON HER HOME)</div>
+    <input type="text" id="rewardIn" maxlength="60" value="${esc(S.reward)}">
+    <button class="btn" onclick="saveReward()">Save reward</button></div>
+    <div class="card"><div class="stepTag">RESET</div>
+    <div style="font-weight:700;line-height:1.5">Reset clears her mission stars, mission progress, drill ticks and by-heart ticks. It KEEPS her Day-1 baseline and her Safe Circle — those are who she is, not progress. It also closes the Stage 1 preview gate again, so a parent previews before it reopens.</div>
+    <button class="btn ${resetArmed ? "gold" : "ghost"}" id="resetBtn" onclick="resetTap()">${resetArmed ? "Tap again to reset — baseline & circle stay, gate closes" : "Reset progress (two taps)"}</button></div>`;
+}
+function saveReward() { const v = $("#rewardIn").value.trim(); if (v) { S.reward = v; save(); renderDash(); dashGo("ctrl"); } }
+function toggleByHeart(k) { S.byHeart[k] = !S.byHeart[k]; save(); renderDash(); dashGo("circle"); }
+function toggleDrill(id) { if (S.drills[id]) delete S.drills[id]; else S.drills[id] = true; save(); renderDash(); dashGo("circle"); }
+function resetTap() {
+  if (!resetArmed) { resetArmed = true; renderDash(); dashGo("ctrl"); return; }
+  const keepBase = S.baseline, keepCircle = S.circle, keepReward = S.reward;
+  S = freshState();
+  S.baseline = keepBase; S.circle = keepCircle; S.reward = keepReward;
+  S.gate = false;
+  resetArmed = false; save(); renderDash(); dashGo("ov");
+}
+
+/* ================= BOOT ================= */
+window.STAGES = STAGES; window.PREVIEWS = PREVIEWS; window.MISSIONS = MISSIONS;
+window.B3 = B3; window.B2_PHRASES = B2_PHRASES; window.CIRCLE_PRESETS = CIRCLE_PRESETS;
+Object.defineProperty(window, "S", { configurable: true, get: () => S, set: (v) => { S = v; } });
+Object.defineProperty(window, "M", { configurable: true, get: () => M, set: (v) => { M = v; } });
+Object.defineProperty(window, "bWork", { configurable: true, get: () => bWork, set: (v) => { bWork = v; } });
+$("#accessMira").innerHTML = miraSVG();
+show("scr-access");
+</script>
+</body>
